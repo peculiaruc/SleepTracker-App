@@ -17,7 +17,6 @@ import com.pecpaker.sleeptrackerapp.databinding.FragmentSleepQualityBinding
  */
 class SleepQualityFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
