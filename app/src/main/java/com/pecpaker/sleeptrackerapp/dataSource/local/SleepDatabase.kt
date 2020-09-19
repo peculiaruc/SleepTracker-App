@@ -1,11 +1,39 @@
 package com.pecpaker.sleeptrackerapp.dataSource.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
-class SleepDatabase {
+
+@Database(entities = [SleepNight::class], version = 1, exportSchema = false)
+abstract class SleepDatabase : RoomDatabase() {
+
+    abstract val sleepNightDao: SleepNightDao
+
+    companion object {
+        @Volatile
+        private var INSTANCE: SleepDatabase? = null
+
+        fun getInstance(context: Context): SleepDatabase {
+            synchronized(this) {
+                var instance = INSTANCE
+
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        SleepDatabase::class.java,
+                        "sleep_history_database"
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+                    INSTANCE = instance
+                }
+                return instance
+            }
+
+        }
+    }
 
 
 }

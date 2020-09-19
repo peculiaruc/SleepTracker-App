@@ -8,6 +8,10 @@
      click handlers, and state variables. -->
     <data>
 
+        <variable
+            name="sleepQulaityViewModel"
+            type="com.pecpaker.sleeptrackerapp.ui.sleepquality.SleepQualityViewModel" />
+
     </data>
 
     <!-- Start of the visible fragment layout using ConstraintLayout -->
