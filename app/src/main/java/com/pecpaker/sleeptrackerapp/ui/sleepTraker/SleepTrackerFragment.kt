@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.pecpaker.sleeptrackerapp.R
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepDatabase
 import com.pecpaker.sleeptrackerapp.databinding.FragmentSleepTrackerBinding
@@ -43,8 +45,17 @@ class SleepTrackerFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
         binding.sleepTrackerViewModel = sleepTrackerViewModel
-
         binding.setLifecycleOwner(this)
+
+        sleepTrackerViewModel.navigaToSleepNight.observe(viewLifecycleOwner, Observer { night ->
+            night?.let {
+                this.findNavController().navigate(
+                    SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepQualityFragment()
+                )
+                sleepTrackerViewModel.doneNavigetting()
+            }
+        })
+
         return binding.root
     }
 

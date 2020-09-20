@@ -2,6 +2,7 @@ package com.pecpaker.sleeptrackerapp.ui.sleepTraker
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.pecpaker.sleeptrackerapp.Utli.formatNights
@@ -24,8 +25,12 @@ class SleepTrackerViewModel(
 
     val nightString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
-
     }
+
+    private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
+    val navigaToSleepNight: LiveData<SleepNight>
+        get() = _navigateToSleepQuality
+
 
     init {
         initializeTonight()
@@ -67,6 +72,7 @@ class SleepTrackerViewModel(
             val oldNight = tonight.value ?: return@launch
             oldNight.endTimeMilli = System.currentTimeMillis()
             update(oldNight)
+            _navigateToSleepQuality.value = oldNight
         }
     }
 
@@ -87,6 +93,10 @@ class SleepTrackerViewModel(
         withContext(Dispatchers.IO) {
             database.clear()
         }
+    }
+
+    fun doneNavigetting() {
+        _navigateToSleepQuality.value = null
     }
 
     override fun onCleared() {
