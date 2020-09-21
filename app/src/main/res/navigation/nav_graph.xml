@@ -3,27 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/sleepTrackerFragment">
+    app:startDestination="@id/sleep_tracker_fragment">
 
     <fragment
-        android:id="@+id/sleepTrackerFragment"
+        android:id="@+id/sleep_tracker_fragment"
         android:name="com.pecpaker.sleeptrackerapp.ui.sleepTraker.SleepTrackerFragment"
-        android:label="SleepTrackerFragment"
+        android:label="@string/sleep_tracker_fragment"
         tools:layout="@layout/fragment_sleep_tracker">
-
         <action
             android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
-            app:destination="@id/sleepTrackerFragment"
+            app:destination="@id/sleep_quality_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_right" />
     </fragment>
 
     <fragment
-        android:id="@+id/sleepQualityFragment2"
+        android:id="@+id/sleep_quality_fragment"
         android:name="com.pecpaker.sleeptrackerapp.ui.sleepquality.SleepQualityFragment"
-        android:label="SleepQualityFragment"
+        android:label="@string/sleep_quality_fragment"
         tools:layout="@layout/fragment_sleep_quality">
-
         <argument
             android:name="sleepNightKey"
             app:argType="long" />
@@ -34,4 +32,5 @@
             app:popUpTo="@+id/sleep_tracker_fragment"
             app:popUpToInclusive="true" />
     </fragment>
+
 </navigation>
