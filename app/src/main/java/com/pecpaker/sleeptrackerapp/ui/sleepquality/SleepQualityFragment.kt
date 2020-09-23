@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.pecpaker.sleeptrackerapp.R
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepDatabase
 import com.pecpaker.sleeptrackerapp.databinding.FragmentSleepQualityBinding
@@ -18,6 +20,7 @@ import com.pecpaker.sleeptrackerapp.databinding.FragmentSleepQualityBinding
  * create an instance of this fragment.
  */
 class SleepQualityFragment : Fragment() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,7 @@ class SleepQualityFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val arguments = SleepQualityFragmentArgs.fromBundle(requireArguments())
+        val arguments = SleepQualityFragmentArgs.fromBundle(arguments!!)
 
         val dataSource = SleepDatabase.getInstance(application).sleepNightDao
 
@@ -43,10 +46,18 @@ class SleepQualityFragment : Fragment() {
         val SleepQualityViewModel =
             ViewModelProviders.of(this, viewModelFacroty).get(SleepQualityViewModel::class.java)
 
-//        binding.sleepQualityViewModel= sleepQualityViewModel
-//
-//
-//        sleepQualityViewModel.navigateToSleepTracker.ob
+        binding.sleepQualityViewModel = sleepQualityViewModel
+
+        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                this.findNavController().navigate(
+                    R.id.action_sleepQualityFragment_to_sleepTrackerFragment
+                )
+                sleepQualityViewModel.doneNavigating()
+            }
+        })
+
+
         return binding.root
     }
 

@@ -1,6 +1,7 @@
 package com.pecpaker.sleeptrackerapp.ui.sleepTraker
 
 import android.app.Application
+import android.view.animation.Transformation
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,6 +27,16 @@ class SleepTrackerViewModel(
     val nightString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
+    val startButtonVisible = Transformations.map(tonight) {
+        null == it
+    }
+    val stopButtonVisible = Transformations.map(tonight) {
+        null != it
+    }
+    val clearButtonVisible = Transformations.map(nights) {
+        it?.isNotEmpty()
+    }
+
 
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
     val navigaToSleepNight: LiveData<SleepNight>
