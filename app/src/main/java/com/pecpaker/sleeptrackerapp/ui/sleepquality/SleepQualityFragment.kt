@@ -37,7 +37,7 @@ class SleepQualityFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val arguments = SleepQualityFragmentArgs.fromBundle(arguments!!)
+        val arguments = SleepQualityFragmentArgs.fromBundle(requireArguments())
 
         val dataSource = SleepDatabase.getInstance(application).sleepNightDao
 
@@ -51,7 +51,7 @@ class SleepQualityFragment : Fragment() {
         viewModel.navigateToSleepToSleelTracker.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 this.findNavController().navigate(
-                    R.id.action_sleepQualityFragment_to_sleepTrackerFragment
+                    SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment()
                 )
                 viewModel.donenavigating()
             }
