@@ -43,20 +43,19 @@ class SleepQualityFragment : Fragment() {
 
         val viewModelFacroty = SleepQualityViewModelFacroty(arguments.sleepNightKey, dataSource)
 
-        val SleepQualityViewModel =
+        val viewModel =
             ViewModelProviders.of(this, viewModelFacroty).get(SleepQualityViewModel::class.java)
 
-        binding.sleepQualityViewModel = sleepQualityViewModel
+        binding.sleepQulaityViewModel = viewModel
 
-        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToSleepToSleelTracker.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 this.findNavController().navigate(
                     R.id.action_sleepQualityFragment_to_sleepTrackerFragment
                 )
-                sleepQualityViewModel.doneNavigating()
+                viewModel.donenavigating()
             }
         })
-
 
         return binding.root
     }
