@@ -1,5 +1,6 @@
 package com.pecpaker.sleeptrackerapp.ui.sleepTraker
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,7 @@ class SleepTrackerAdapter : RecyclerView.Adapter<SleepTrackerAdapter.ViewHolder>
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val textView = itemView.findViewById<TextView>(R.id.title_text)
+        val textView = itemView.findViewById<TextView>(R.id.text_View)
 
     }
 
@@ -34,6 +35,12 @@ class SleepTrackerAdapter : RecyclerView.Adapter<SleepTrackerAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemView = data[position]
+        if (itemView.sleepQuality <= 1) {
+            holder.textView.setTextColor(Color.RED)
+        } else {
+            // reset
+            holder.textView.setTextColor(Color.BLACK)
+        }
         holder.textView.text = itemView.sleepQuality.toString()
 
     }

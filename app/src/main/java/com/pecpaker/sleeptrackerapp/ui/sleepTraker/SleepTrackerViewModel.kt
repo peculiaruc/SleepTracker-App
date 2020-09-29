@@ -22,7 +22,7 @@ class SleepTrackerViewModel(
 
     private var tonight = MutableLiveData<SleepNight>()
 
-    private val nights = database.getAllNights()
+    val nights = database.getAllNights()
 
     val nightString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
@@ -103,7 +103,7 @@ class SleepTrackerViewModel(
         uiScope.launch {
             clear()
             tonight.value = null
-            _sh0wSnackbarEVentn.value = true
+            _sh0wSnackbarEVentn.value = false
         }
     }
 
