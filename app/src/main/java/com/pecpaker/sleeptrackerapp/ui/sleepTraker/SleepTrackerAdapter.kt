@@ -1,20 +1,14 @@
 package com.pecpaker.sleeptrackerapp.ui.sleepTraker
 
-import android.content.res.Resources
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ListAdapter
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pecpaker.sleeptrackerapp.R
 import com.pecpaker.sleeptrackerapp.Utli.convertDurationToFormatted
 import com.pecpaker.sleeptrackerapp.Utli.convertNumericQualityToString
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepNight
+import com.pecpaker.sleeptrackerapp.databinding.ListSleepNightBinding
 
 class SleepTrackerAdapter :
     androidx.recyclerview.widget.ListAdapter<SleepNight, SleepTrackerAdapter.ViewHolder>(
@@ -29,17 +23,15 @@ class SleepTrackerAdapter :
 //        }
 
 
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val sleepLength = itemView.findViewById<TextView>(R.id.sleep_length)
-        val quality = itemView.findViewById<TextView>(R.id.quality_string)
-        val qualityImage = itemView.findViewById<ImageView>(R.id.quality_image)
+    class ViewHolder private constructor(val binding: ListSleepNightBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SleepNight) {
             val res = itemView.context.resources
-            sleepLength.text =
+            binding.sleepLength.text =
                 convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, res)
-            quality.text = convertNumericQualityToString(item.sleepQuality, res)
-            qualityImage.setImageResource(
+            binding.qualityString.text = convertNumericQualityToString(item.sleepQuality, res)
+            binding.qualityImage.setImageResource(
                 when (item.sleepQuality) {
                     0 -> R.drawable.ic_sleep_0
                     1 -> R.drawable.ic_sleep_1
@@ -56,8 +48,8 @@ class SleepTrackerAdapter :
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val itemView = layoutInflater.inflate(R.layout.list_sleep_night, parent, false)
-                return ViewHolder(itemView)
+                val binding = ListSleepNightBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
 
