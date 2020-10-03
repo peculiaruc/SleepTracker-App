@@ -8,18 +8,23 @@
         <variable
             name="sleep"
             type="com.pecpaker.sleeptrackerapp.dataSource.local.SleepNight" />
+
+        <variable
+            name="clickListener"
+            type="com.pecpaker.sleeptrackerapp.ui.sleepTraker.SleepNightListerner" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(sleep)">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:cardPreventCornerOverlap="true"

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.buildSpannedString
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -55,7 +56,9 @@ class SleepTrackerFragment : Fragment() {
         val manager = GridLayoutManager(context, 3)
         binding.sleepList.layoutManager = manager
 
-        val adapter = SleepTrackerAdapter()
+        val adapter = SleepTrackerAdapter(SleepNightListerner { nighId ->
+            Toast.makeText(context, "${nighId}", Toast.LENGTH_LONG).show()
+        })
         binding.sleepList.adapter = adapter
 
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
