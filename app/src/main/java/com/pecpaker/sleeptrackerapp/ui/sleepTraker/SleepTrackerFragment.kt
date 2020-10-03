@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.buildSpannedString
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.pecpaker.sleeptrackerapp.R
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepDatabase
@@ -21,6 +24,7 @@ import com.pecpaker.sleeptrackerapp.databinding.FragmentSleepTrackerBinding
  * create an instance of this fragment.
  */
 class SleepTrackerFragment : Fragment() {
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +50,10 @@ class SleepTrackerFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
         binding.sleepTrackerViewModel = sleepTrackerViewModel
+
+        //Implemting GridLayout
+        val manager = GridLayoutManager(context, 3)
+        binding.sleepList.layoutManager = manager
 
         val adapter = SleepTrackerAdapter()
         binding.sleepList.adapter = adapter
