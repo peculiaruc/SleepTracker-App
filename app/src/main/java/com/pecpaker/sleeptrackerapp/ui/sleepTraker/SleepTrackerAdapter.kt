@@ -3,12 +3,13 @@ package com.pecpaker.sleeptrackerapp.ui.sleepTraker
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepNight
 import com.pecpaker.sleeptrackerapp.databinding.ListSleepNightBinding
 
 class SleepTrackerAdapter(val clickListener: SleepNightListerner) :
-    androidx.recyclerview.widget.ListAdapter<SleepNight, SleepTrackerAdapter.ViewHolder>(
+    ListAdapter<SleepNight, SleepTrackerAdapter.ViewHolder>(
         SleepNightDiffCallback()
     ) {
 
@@ -23,15 +24,13 @@ class SleepTrackerAdapter(val clickListener: SleepNightListerner) :
     class ViewHolder private constructor(val binding: ListSleepNightBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(
-            item: SleepNight,
-            clickListener: SleepNightListerner
-        ) {
+        fun bind(item: SleepNight, clickListener: SleepNightListerner) {
             binding.sleep = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
 
             //Replace this code with BindingAdapter
+
 //            val res = itemView.context.resources
 //            binding.sleepLength.text =
 //                convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, res)
@@ -66,8 +65,6 @@ class SleepTrackerAdapter(val clickListener: SleepNightListerner) :
 //    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val item = data[position]
-        val item = getItem(position)
         holder.bind(getItem(position)!!, clickListener)
     }
 

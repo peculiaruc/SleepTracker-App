@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.pecpaker.sleeptrackerapp.R
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepDatabase
 import com.pecpaker.sleeptrackerapp.databinding.FragmentSleepDetailBinding
@@ -32,6 +35,27 @@ class SleepDetailFragment : Fragment() {
         val arguments = SleepDetailFragmentArgs.fromBundle(requireArguments())
 
         val dataSource = SleepDatabase.getInstance(application).sleepNightDao
+        val viewModelFactory = SleepDetailViewModelFactory(arguments.sleepNightKey, dataSource)
+
+        val sleepDetailViewModel =
+            ViewModelProvider(
+                this, viewModelFactory
+            ).get(SleepDetailViewModel::class.java)
+        binding.sleepDetailViewModel = sleepDetailViewModel
+
+        binding.setLifecycleOwner(this)
+
+        sleepDetailViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                this.findNavController().navigate(
+                    SleepDetailFragmentDirections
+                        .actionSleepDetailFragmentToSleepTrackerFragment()
+                )
+                sleepDetailViewModel.doneNavigating()
+            }
+        })
+
+
         return binding.root
     }
 
