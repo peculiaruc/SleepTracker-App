@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepNight
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepNightDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
 class SleepDetailViewModel(
@@ -24,6 +26,7 @@ class SleepDetailViewModel(
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
      */
     private val viewModelJob = Job()
+
 
     private val night = MediatorLiveData<SleepNight>()
 

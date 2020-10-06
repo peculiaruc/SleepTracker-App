@@ -21,6 +21,7 @@ import com.pecpaker.sleeptrackerapp.databinding.FragmentSleepDetailBinding
  */
 class SleepDetailFragment : Fragment() {
 
+    private lateinit var viewModel: SleepDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +42,9 @@ class SleepDetailFragment : Fragment() {
             ViewModelProvider(
                 this, viewModelFactory
             ).get(SleepDetailViewModel::class.java)
-        binding.sleepDetailViewModel = sleepDetailViewModel
 
-        binding.setLifecycleOwner(this)
+        binding.sleepDetailViewModel = sleepDetailViewModel
+        binding.lifecycleOwner = this
 
         sleepDetailViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
             if (it == true) {
@@ -54,8 +55,6 @@ class SleepDetailFragment : Fragment() {
                 sleepDetailViewModel.doneNavigating()
             }
         })
-
-
         return binding.root
     }
 

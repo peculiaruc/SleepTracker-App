@@ -10,7 +10,7 @@ import com.pecpaker.sleeptrackerapp.Utli.convertNumericQualityToString
 import com.pecpaker.sleeptrackerapp.dataSource.local.SleepNight
 
 @BindingAdapter("sleepDurationFormatted")
-fun TextView.setSleepdurationFormatted(item: SleepNight) {
+fun TextView.setSleepdurationFormatted(item: SleepNight?) {
     item?.let {
         text = convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, context.resources)
     }
